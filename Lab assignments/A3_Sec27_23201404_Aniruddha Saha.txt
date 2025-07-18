@@ -1,0 +1,111 @@
+Task 01: 
+
+def walk_zigzag(floor):
+  r1,c1=floor.shape
+  if r1%2==0:
+    for i in range (c1):
+      if i%2 == 0 :
+        for j in range(0,r1,2) :
+          print(floor[j][i], end= " ")
+      else :
+          for j in range(r1-1, -1, -2) :
+              print(floor[j][i], end = " ")
+      print()
+  else :
+      for i in range(c1) :
+          if i%2 == 0 :
+              for j in range(0,r1,2) :
+                  print(floor[j][i], end= " ")
+          else :
+              for j in range(r1-2, -1, -2) :
+                  print(floor[j][i], end = " ")
+          print()
+  print()
+
+
+Task 02: 
+
+def decrypt_matrix(matrix):
+  r1,c1=matrix.shape
+  s_col=np.zeros((1,c1),dtype=int)
+  s_de=np.zeros((1,c1-1),dtype=int)
+  for i in range(c1):
+    for j in range (r1):
+      s_col[0][i]+=matrix[j][i]
+
+  for k in range(c1 - 1):
+      s_de[0][k] = s_col[0][k + 1]- s_col[0][k]
+
+  return s_de[0]
+
+
+Task 03: 
+def row_rotation(exam_week, seat_status):
+  s_copy=np.copy(seat_status)
+
+  r1,c1=s_copy.shape
+  for i in range(exam_week-1):
+        tp = np.zeros(c1, dtype=object)
+        for j in range(c1):
+            tp[j] = s_copy[r1 - 1][j]
+        for k in range(r1 - 1, 0, -1):
+          s_copy[k] = s_copy[k - 1]
+
+        for j in range(c1):
+            s_copy[0][j] = tp[j]
+  print_matrix(s_copy)
+
+  for f in range(r1):
+    for k in range (c1):
+      if s_copy[f][k]=="AA":
+        return f+1
+
+
+Task 04:
+
+def compress_matrix(mat):
+  r1,c1=mat.shape
+  s1=np.zeros((r1//2,c1//2),dtype=int)
+  for i in range (0,r1,2):
+    for j in range (0,c1,2):
+      s1[i//2][j//2]+=mat[i][j]+mat[i+1][j]+mat[i][j+1]+mat[i+1][j+1]
+  return s1
+
+
+
+Task 05:
+
+def play_game(arena):
+  r1,c1=arena.shape
+  p_co=0
+  for i in range (r1):
+    for j in range (c1):
+      if arena[i][j]%50==0:
+        if arena[i][j] !=0:
+          p_co+=1
+  x_c=np.zeros(p_co*4,dtype=int)
+  y_c=np.zeros(p_co*4,dtype=int)
+  g_c=0
+  for k in range(r1):
+    for l in range(c1):
+      if arena[k][l] % 50 == 0:
+        if arena[k][l] != 0:
+          x_c[g_c] = k - 1
+          y_c[g_c] = l
+          x_c[g_c + 1] = k
+          y_c[g_c + 1] = l - 1
+          x_c[g_c + 2] = k
+          y_c[g_c + 2] = l + 1
+          x_c[g_c + 3] = k + 1
+          y_c[g_c + 3] = l
+          g_c += 4
+
+    total = 0
+    for h in range(x_c.size):
+        if 0 <= x_c[h] < r1 and 0 <= y_c[h] < c1:
+            if arena[x_c[h]][y_c[h]] == 2:
+                total += arena[x_c[h]][y_c[h]]
+  if total < 10 :
+    print(f"Points Gained: {total} . Your team is out.")
+  else :
+    print(f"Points Gained: {total} . Your team has survived the game.")

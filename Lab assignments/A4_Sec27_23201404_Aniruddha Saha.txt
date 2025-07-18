@@ -1,0 +1,163 @@
+Task 1:
+
+ def __hash_function(self, key):
+    if len(key) % 2 != 0:
+      key += 'N'
+    h_sum=0
+
+    for i in range (0,len(key),2):
+      p_combine =str(ord(key[i]))+str(ord(key[i+1]))
+
+      h_sum+=int(p_combine)
+
+      return h_sum % len(self.ht)
+
+
+
+  def search_hashtable(self, s):
+    index=self.__hash_function(s[0])
+    temp=self.ht[index]
+    while temp!=None:
+      if temp.key==s[0]:
+        return "Found"
+      temp=temp.next
+    return "Not Found"
+
+
+Task2:
+
+ def __hash_function(self, key):
+    s1 = 0
+
+
+    if len(key) % 2 == 0:
+        for i in range(0, len(key), 2):
+            s1 += ord(key[i])
+    else:
+        for i in range(1, len(key), 2):
+            s1 += ord(key[i])
+
+    return s1 % self.length
+
+
+
+  def insert(self, key, value):
+    ind = self.__hash_function(key)
+    h1 = self.ht[ind]
+    t1 = h1
+    while t1 is not None:
+        if t1.value and t1.value[0] == key:
+            t1.value = (key, value)
+            return
+        t1 = t1.next
+    n_node = Node((key, value))
+    n_node.next = h1
+    self.ht[ind] = n_node
+
+
+Task3:
+
+  def __hash_function(self, key):
+    return (key + 3) % 6
+
+
+
+
+  def remove(self, key):
+      index=self.__hash_function(key)
+      if self.ht[index] is None:
+          return
+
+      p1 = self.ht[index]
+      r_Node = p1.next
+
+
+      while r_Node !=None:
+          if r_Node.key == key:
+              s1 = r_Node.next
+              p1.next = s1
+              return
+          p1 = r_Node
+          r_Node = r_Node.next
+
+
+
+Task4:
+
+def diamond_count(stack,string):
+  c1=0
+  for i in string:
+    if i in "<":
+      stack.push(i)
+    elif i in ">":
+      if not stack.isEmpty():
+       last=stack.pop()
+
+       c1+=1
+
+
+
+  return c1
+
+
+Task 5:
+
+def remove_block(stack, n):
+ t1_stack=Stack()
+ for i in range (n-1):
+  if stack.isEmpty():
+    return
+  t1_stack.push(stack.pop())
+ if stack.isEmpty():
+  return
+ stack.pop()
+ while not t1_stack.isEmpty():
+    stack.push(t1_stack.pop())
+
+
+Task 6:
+
+def conditional_reverse(stack):
+  t1=Stack()
+  while not stack.isEmpty():
+    t1.push(stack.pop())
+  while not t1.isEmpty():
+    last=t1.peek()
+    if stack.isEmpty():
+      stack.push(last)
+
+    elif  stack.peek() != last:
+      stack.push(last)
+
+    t1.pop()
+
+  return stack
+
+
+Task 7:
+
+
+    def enqueue_call(self, customer_id, is_vip):
+        if is_vip:
+          self.vip_queue.enqueue(customer_id)
+          print(f"Customer {customer_id} added to VIP queue.")
+        else:
+          self.regular_queue.enqueue(customer_id)
+          print(f"Customer {customer_id} added to Regular queue.")
+
+
+    def dequeue_call(self):
+        if not self.vip_queue.is_empty():
+            customer_id = self.vip_queue.dequeue()
+            print(f"Processing VIP Customer {customer_id}.")
+        elif not self.regular_queue.is_empty():
+            customer_id = self.regular_queue.dequeue()
+            print(f"Processing Regular Customer {customer_id}.")
+        else:
+            print("No calls in the queue.")
+
+    def display_queue(self):
+      print("VIP Queue:")
+      self.vip_queue.display()
+      print("Regular Queue: ")
+      self.regular_queue.display()

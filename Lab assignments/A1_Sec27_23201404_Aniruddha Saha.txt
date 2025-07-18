@@ -1,0 +1,105 @@
+Task 1: Merge Sorted Array
+def mergeSortedArray(arr1, arr2):
+    in_1 = 0
+    in_arr1 = 0
+    in_arr2 = 0
+
+    total_length = len(arr1) + len(arr2)
+    merged_array = np.zeros(total_length, dtype=int)
+
+    while in_arr1 < len(arr1) and in_arr2 < len(arr2):
+        if arr1[in_arr1] <= arr2[in_arr2]:
+            merged_array[in_1] = arr1[in_arr1]
+            in_arr1 += 1
+        else:
+            merged_array[in_1] = arr2[in_arr2]
+            in_arr2 += 1
+        in_1 += 1
+
+    while in_arr1 < len(arr1):
+        merged_array[in_1] = arr1[in_arr1]
+        in_arr1 += 1
+        in_1 += 1
+
+    while in_arr2 < len(arr2):
+        merged_array[in_1] = arr2[in_arr2]
+        in_arr2 += 1
+        in_1 += 1
+
+    return merged_array
+
+Task 2: Container with Most Water
+
+def mostWater(arr):
+  max_a = 0
+  s1 = 0
+  s2 = len(arr) - 1
+
+  while s1 < s2:
+      if arr[s1] < arr[s2]:
+          h = arr[s1]
+      else:
+          h = arr[s2]
+      w = s2 - s1
+      a = h * w
+      if a > max_a:
+          max_a = a
+
+      if arr[s1] < arr[s2]:
+          s1 += 1
+      else:
+          s2 -= 1
+
+  return max_a
+
+Task 3:Building Blocks
+def check_similar(building_1, building_2):
+  h1 = building_1
+  h2 = building_2
+  while h1 != None and h2 != None:
+    if h1.elem != h2.elem:
+      return "Not Similar"
+    h1 = h1.next
+    h2 = h2.next
+
+  if h1 == None and h2 == None:
+      return "Similar"
+
+  return "Not Similar"
+
+Task 4: Assemble Conga Line
+
+def assemble_conga_line(conga_line):
+
+    s1 = conga_line
+    flag = True
+    if s1 == None or s1.next == None:
+      return True
+
+    while s1.next != None:
+        if s1.elem > s1.next.elem:
+            flag = False
+            break
+
+        s1 = s1.next
+
+    return flag
+
+Task 5: Sum of Nodes
+
+def sum_dist(head, arr):
+  sum  = 0
+  for i in range(len(arr)) :
+      start = 0
+      s1 = head
+
+      while start!= arr[i] :
+        if s1 != None :
+          s1=s1.next
+          start+=1
+        else :
+          break
+      if s1 != None :
+        sum += s1.elem
+
+  return sum

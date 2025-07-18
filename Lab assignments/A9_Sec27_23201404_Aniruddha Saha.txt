@@ -1,0 +1,503 @@
+#Task1 (Adjacency Matrix)
+
+import numpy as np
+class Graph:
+
+  def __init__(self, n_o_ver):
+    self.num_of_vert = n_o_ver
+    self.adj_matrix = np.zeros((n_o_ver, n_o_ver), dtype=int)
+
+
+  def print_matrix(self):
+    print("Adjacency Matrix:")
+    for ro in self.adj_matrix:
+      print(ro)
+
+
+  def add_edges(self, ed):
+    for x, y in ed:
+      self.adj_matrix[x][y] = 1
+      self.adj_matrix[y][x] = 1
+
+
+  def find_max_degree_and_vertex(self):
+    max_deg = 0
+    ver = 0
+    for i in range(len(self.adj_matrix)):
+      deg = 0
+      for j in self.adj_matrix[i]:
+        if j == 1:
+          deg += j
+      if deg > max_deg:
+        max_deg = deg
+        ver = i
+    return(f"Vertex with maximum degree is  index: {ver}\n"
+          f"Maximum vertex degree: {max_deg}")
+
+num_of_vertices = 8
+edges = [
+    (0, 1),
+    (0, 3),
+    (0, 5),
+    (0, 6),
+    (0, 7),
+    (1, 2),
+    (1, 7),
+    (2, 3),
+    (2, 4),
+    (2, 7),
+    (3, 4),
+    (3, 7),
+    (4, 5),
+    (4, 7),
+    (5, 6),
+    (5, 7),
+    (6, 7),
+    (1, 4)  
+]
+
+graph = Graph(num_of_vertices)
+graph.add_edges(edges)
+graph.print_matrix()
+print(graph.find_max_degree_and_vertex())
+
+
+#Task 1 (Adjacency List)
+
+class AdjacencyList:
+  def __init__(self, n_o_ver):
+    self.num_of_vert = n_o_ver
+    self.adj_lst = [None] * n_o_ver
+
+    for i in range(n_o_ver):
+      self.adj_lst[i] = []
+
+  def add_edges(self, edg):
+    for x, y in edg:
+      self.adj_lst[x] += [y]
+      self.adj_lst[y] += [x]
+
+  def p_lst(self):
+    print("Adjacency List:")
+    for u in range(self.num_of_vert):
+      n = self.adj_lst[u]
+      print(f"{u}: {n}")
+
+  def find_max_degree_and_vertex(self):
+    max_deg = 0
+    vert = 0
+
+    for i in range(self.num_of_vert):
+      deg = len(self.adj_lst[i])
+      if deg > max_deg:
+        max_deg = deg
+        ver = i
+
+    return(f"Vertex with maximum degree is  index: {ver}\n"
+          f"Maximum vertex degree: {max_deg}")
+num_of_vertices = 8
+edges = [
+    (0, 1),
+    (0, 3),
+    (0, 5),
+    (0, 6),
+    (0, 7),
+    (1, 2),
+    (1, 7),
+    (2, 3),
+    (2, 4),
+    (2, 7),
+    (3, 4),
+    (3, 7),
+    (4, 5),
+    (4, 7),
+    (5, 6),
+    (5, 7),
+    (6, 7),
+    (1, 4)  
+]
+adj_L =AdjacencyList(num_of_vertices)
+adj_L.add_edges(edges)
+adj_L.p_lst()
+print(adj_L.find_max_degree_and_vertex())
+
+
+#Task 2 (Adjacency Matrix)
+class Graph:
+
+  def __init__(self, n_o_ver):
+    self.num_of_vert = n_o_ver
+    self.adj_mat = np.zeros((n_o_ver, n_o_ver), dtype=int)
+
+  def add_edges(self, edges):
+    for x, y, z in edges:
+      self.adj_mat[x][y] = z
+      self.adj_mat[y][x] = z
+
+  def print_matrix(self):
+    print("Adjacency Matrix:")
+    for i in self.adj_mat:
+      print(i)
+
+  def max_sum_of_edge_weight(self):
+    max_sum = 0
+    max_vert = 0
+
+    for k in range(self.num_of_vert):
+      sum = 0
+      for w in self.adj_mat[k]:
+        sum += w
+
+      if sum > max_sum:
+        max_sum = sum
+        max_vert = k
+
+    return(f"\nThe vertex with maximum edge weight sum is {max_vert}")
+num_of_vertices = 8
+edges = [
+    (0, 1, 7),
+    (0, 3, 16),
+    (0, 5, 19),
+    (0, 6, 18),
+    (0, 7, 27),
+    (1, 2, 13),
+    (1, 7, 5),
+    (2, 3, 7),
+    (2, 4, 21),
+    (2, 7, 9),
+    (3, 4, 15),
+    (3, 7, 30),
+    (4, 5, 28),
+    (4, 7, 13),
+    (5, 6, 9),
+    (5, 7, 19),
+    (6, 7, 10),
+    (1, 4, 11)  
+]
+graph = Graph(num_of_vertices)
+graph.add_edges(edges)
+graph.print_matrix()
+print(graph.max_sum_of_edge_weight())
+
+
+#Task 2 (Adjacency List)
+
+class Adjacentlist:
+  def __init__(self, n_o_ver):
+    self.num_of_vert = n_o_ver
+    self.adj_lst = [0] * n_o_ver
+
+    for i in range(n_o_ver):
+      self.adj_lst[i] = []
+
+  def add_edges(self, edges):
+    for x, y, z in edges:
+      self.adj_lst[x] += [(y, z)]
+      self.adj_lst[y] += [(x, z)]
+
+  def print_lst(self):
+    print("Adjacency List:")
+    for k in range(self.num_of_vert):
+      n = self.adj_lst[k]
+      print(f"{k}: {n}")
+
+  def max_sum_of_edge_weight(self):
+    max_sum = 0
+    max_vert = 0
+
+    for v in range(self.num_of_vert):
+      sum = 0
+      for n, w in self.adj_lst[v]:
+        sum += w
+
+      if sum > max_sum:
+        max_sum = sum
+        max_vert = v
+
+    return(f"\nThe vertex with maximum edge weight sum is {max_vert}")
+
+
+
+num_of_vertices = 8
+edges = [
+    (0, 1, 7),
+    (0, 3, 16),
+    (0, 5, 19),
+    (0, 6, 18),
+    (0, 7, 27),
+    (1, 2, 13),
+    (1, 7, 5),
+    (2, 3, 7),
+    (2, 4, 21),
+    (2, 7, 9),
+    (3, 4, 15),
+    (3, 7, 30),
+    (4, 5, 28),
+    (4, 7, 13),
+    (5, 6, 9),
+    (5, 7, 19),
+    (6, 7, 10),
+    (1, 4, 11)  
+]
+adlist = Adjacentlist(num_of_vertices)
+adlist.add_edges(edges)
+adlist.print_lst()
+print(adlist.max_sum_of_edge_weight())
+
+
+#Task 3 (Adjacency Matrix)
+class Graph:
+
+  def __init__(self, n_o_ver):
+    self.num_of_ver = n_o_ver
+    self.adj_mat = np.zeros((n_o_ver, n_o_ver), dtype=int)
+
+  def add_edges(self, edges):
+    for x, y, z in edges:
+      self.adj_mat[x][y] = z
+      
+
+  def print_matrix(self):
+    print("Adjacency Matrix:")
+    for i in self.adj_mat:
+      print(i) 
+
+  def find_max_degree_and_vertex(self):
+    max_deg = 0
+    ver = 0
+    for i in range(len(self.adj_mat)):
+      deg = 0
+      for k in self.adj_mat[i]:
+        if k !=0:
+          deg += 1
+      if deg > max_deg:
+        max_deg = deg
+        ver = i
+    return(f"Vertex with maximum degree is  index: {ver}\n"
+          f"Maximum vertex degree: {max_deg}")
+
+  def max_sum(self):
+    m_sum=0
+    m_ver=0
+
+    for i in range (self.num_of_ver):
+      s=0
+      for j in self.adj_mat[i]:
+        s+=j
+      
+      if s>m_sum:
+        m_sum=s
+        m_ver=i
+    return(f"\nThe vertex with maximum edge weight sum is {m_ver}")
+ 
+num_of_vertices = 8
+edges = [
+    (0, 1, 7),
+    (0, 3, 16),
+    (0, 5, 19),
+    (0, 6, 18),
+    (0, 7, 27),
+    (1, 2, 13),
+    (1, 7, 5),
+    (2, 3, 7),
+    (2, 4, 21),
+    (2, 7, 9),
+    (3, 4, 15),
+    (3, 7, 30),
+    (4, 5, 28),
+    (4, 7, 13),
+    (5, 6, 9),
+    (5, 7, 19),
+    (6, 7, 10),
+    (1, 4, 11)  
+]
+graph = Graph(num_of_vertices)
+graph.add_edges(edges)
+graph.print_matrix()
+print(graph.find_max_degree_and_vertex())
+print(graph.max_sum())
+
+
+#Task 3 (Adjacency List):
+class Adjacentlist:
+  def __init__(self, n_o_ver):
+    self.num_of_vert = n_o_ver
+    self.adj_lst = [0] * n_o_ver
+
+    for i in range(n_o_ver):
+      self.adj_lst[i] = []
+
+  def add_edges(self, edges):
+    for x, y, z in edges:
+      self.adj_lst[x] += [(y, z)]
+
+  def p_lst(self):
+    print("Adjacency List:")
+    for k in range(self.num_of_vert):
+      n = self.adj_lst[k]
+      print(f"{k}: {n}")
+
+  def find_max_degree_and_vertex(self):
+    max_deg = 0
+    vert = 0
+
+    for i in range(self.num_of_vert):
+      deg = len(self.adj_lst[i])
+      if deg > max_deg:
+        max_deg = deg
+        ver = i
+
+    return(f"Vertex with maximum degree is  index: {ver}\n"
+          f"Maximum vertex degree: {max_deg}")
+    
+  def max_sum(self):
+    m_sum=0
+    m_ver=0
+
+    for i in range (self.num_of_ver):
+      s=0
+      for l,j in self.adj_mat[i]:
+        s+=j
+      
+      if s>m_sum:
+        m_sum=s
+        m_ver=i
+    return(f"\nThe vertex with maximum edge weight sum is {m_ver}")
+
+num_of_vertices = 8
+edges = [
+    (0, 1, 7),
+    (0, 3, 16),
+    (0, 5, 19),
+    (0, 6, 18),
+    (0, 7, 27),
+    (1, 2, 13),
+    (1, 7, 5),
+    (2, 3, 7),
+    (2, 4, 21),
+    (2, 7, 9),
+    (3, 4, 15),
+    (3, 7, 30),
+    (4, 5, 28),
+    (4, 7, 13),
+    (5, 6, 9),
+    (5, 7, 19),
+    (6, 7, 10),
+    (1, 4, 11)  
+]
+
+adj_L =Adjacentlist(num_of_vertices)
+adj_L.add_edges(edges)
+adj_L.p_lst()
+print(adj_L.find_max_degree_and_vertex())
+
+#Task 4 (Adjacency Matrix)
+
+class Graph:
+
+  def __init__(self, n_o_ver):
+    self.num_of_ver = n_o_ver
+    self.adj_mat = np.zeros((n_o_ver, n_o_ver), dtype=int)
+
+  def add_edges(self, edges):
+    for x, y, z in edges:
+      self.adj_mat[x][y] = z
+
+  def print_matrix(self):
+    print("Adjacency Matrix:")
+    for i in self.adj_mat:
+      print(i) 
+
+  def to_undirected(self):
+    for k in range(self.num_of_ver):
+
+      for l in range(k, self.num_of_ver):
+        if self.adj_mat[k][l] != 0:
+          self.adj_mat[l][k] = self.adj_mat[k][l]
+
+        elif self.adj_mat[l][k] != 0:
+          self.adj_mat[k][l] = self.adj_mat[l][k]
+
+num_of_vertices = 8
+edges = [
+    (0, 1, 7),
+    (0, 3, 16),
+    (0, 5, 19),
+    (0, 6, 18),
+    (0, 7, 27),
+    (1, 2, 13),
+    (1, 7, 5),
+    (2, 3, 7),
+    (2, 4, 21),
+    (2, 7, 9),
+    (3, 4, 15),
+    (3, 7, 30),
+    (4, 5, 28),
+    (4, 7, 13),
+    (5, 6, 9),
+    (5, 7, 19),
+    (6, 7, 10),
+    (1, 4, 11)  
+]
+graph = Graph(num_of_vertices)
+graph.add_edges(edges)
+graph.print_matrix()
+
+print()
+graph.to_undirected()
+graph.print_matrix()
+
+#Task4 (Adjacency List)
+
+class Adjacentlist:
+  def __init__(self, n_o_ver):
+    self.num_of_ver = n_o_ver
+    self.adj_lst = [0] * n_o_ver
+
+    for i in range(n_o_ver):
+      self.adj_lst[i] = []
+
+  def add_edges(self, edges):
+    for x, y, z in edges:
+      self.adj_lst[x] += [(y, z)]
+
+  def p_lst(self):
+    print("Adjacency List:")
+    for k in range(self.num_of_ver):
+      n = self.adj_lst[k]
+      print(f"{k}: {n}")
+
+  def to_undirected(self):
+    for i in range(self.num_of_ver):
+      for j, k in self.adj_lst[i]:
+        if (i, k) not in self.adj_lst[j]:
+          self.adj_lst[j] += [(i, k)]
+
+num_of_vertices = 8
+edges = [
+    (0, 1, 7),
+    (0, 3, 16),
+    (0, 5, 19),
+    (0, 6, 18),
+    (0, 7, 27),
+    (1, 2, 13),
+    (1, 7, 5),
+    (2, 3, 7),
+    (2, 4, 21),
+    (2, 7, 9),
+    (3, 4, 15),
+    (3, 7, 30),
+    (4, 5, 28),
+    (4, 7, 13),
+    (5, 6, 9),
+    (5, 7, 19),
+    (6, 7, 10),
+    (1, 4, 11)  
+]
+
+adj_L =Adjacentlist(num_of_vertices)
+adj_L.add_edges(edges)
+adj_L.p_lst()
+print()
+adj_L.to_undirected()
+adj_L.p_lst()

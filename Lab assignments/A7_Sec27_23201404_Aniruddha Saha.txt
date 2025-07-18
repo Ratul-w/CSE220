@@ -1,0 +1,67 @@
+#Task1
+
+def LCA(root, x, y):
+  if root==None:
+    return 0
+  if root.elem < x and root.elem < y:
+    return LCA(root.right, x, y)
+  elif root.elem > x and root.elem > y:
+     return LCA(root.left, x, y)
+  else:
+    return root.elem
+
+#Task2
+
+def find_Path(root, key):
+  def checker(n, k):
+    if n is None:
+        return False
+    if n.elem == k:
+        return True
+    elif k < n.elem:
+        return checker(n.left, k)
+    else:
+        return checker(n.right, k)
+
+  if not checker(root, key):
+    return "No path Found"
+  else:
+    l1 = []
+
+    def path_detector(n, k):
+        if n is None:
+            return
+        l1.append(n.elem)
+        if k == n.elem:
+            return
+        elif k < n.elem:
+            return path_detector(n.left, k)
+        else:
+            return path_detector(n.right, k)
+
+    path_detector(root, key)
+    return l1
+
+#Task3
+
+def sum_of_leaves(root, sum):
+  if root == None :
+   return 0
+  elif root.left == None and root.right == None :
+   return sum + root.elem
+  else :
+    return sum_of_leaves(root.left, sum) + sum_of_leaves(root.right, sum)
+
+#Task4
+
+def mirror_sum(root):
+  if root==None:
+    return 0
+  def help_func(n,k):
+    if n==None or k==None:
+      return 0
+    return n.elem+k.elem+help_func(n.left,k.right)+help_func(n.left,k.right)
+  return help_func(root.left,root.right)
+
+
+
